@@ -24,8 +24,14 @@ const { ObjectId } = require('mongodb');
         const mens = await mensagens.findOne({_id: ObjectId(id)})
         res.send(mens)
         
-     });
+     })
 
+    //Criar mensagem
+    app.post('/mensagens',async(req,res)=>{
+        const mensagem=req.body
+        await mensagens.insertOne(mensagem)
+        res.send('Mensagem criada com sucesso')
+    })
 
     //Altera individual
     app.put('/mensagens/:id',async(req,res)=>{
@@ -49,15 +55,7 @@ const { ObjectId } = require('mongodb');
         //deleteOne é 1 elemento, await faz rodar a proxima linha do código so dps da forma assincrona
         await mensagens.deleteOne({ _id: ObjectId(id)});
         res.send('Mensagem removida com sucesso');
-    })
-
-
-    //Criar mensagem
-    app.post('/mensagens',async(req,res)=>{
-        const mensagem=req.body
-        await mensagens.insertOne(mensagem)
-        res.send('Mensagem criada com sucesso')
-    })
+    })  
 
 
 
